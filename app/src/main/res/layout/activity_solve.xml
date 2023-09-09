@@ -8,22 +8,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerView"
         android:layout_width="375dp"
-        android:layout_height="488dp"
+        android:layout_height="645dp"
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/buttonSolve"
-        android:layout_width="375dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="56dp"
-        android:text="차례대로 풀기"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RecyclerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

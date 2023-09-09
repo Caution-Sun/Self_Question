@@ -10,6 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Q_Self">
         <activity
+            android:name=".AnswerDialog"
+            android:label="정답"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:exported="false" />
+        <activity
+            android:name=".MakeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListQActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SolveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SolveQActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
