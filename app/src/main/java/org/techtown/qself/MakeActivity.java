@@ -23,7 +23,7 @@ public class MakeActivity extends AppCompatActivity {
         editTextQuestion = findViewById(R.id.editTextQuestion);
         editTextAnswer = findViewById(R.id.editTextAnswer);
 
-        Button buttonMakeQuestion = findViewById(R.id.buttonMakeQuestion);
+        Button buttonMakeQuestion = findViewById(R.id.buttonEditQuestion);
 
         buttonMakeQuestion.setOnClickListener(new View.OnClickListener() {
             @Override

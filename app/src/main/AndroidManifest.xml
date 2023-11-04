@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Q_Self">
         <activity
-            android:name=".AnswerDialog"
-            android:label="정답"
-            android:theme="@style/Theme.AppCompat.Dialog"
+            android:name=".EditActivity"
             android:exported="false" />
+        <activity
+            android:name=".AnswerDialog"
+            android:exported="false"
+            android:label="정답"
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".MakeActivity"
             android:exported="false" />
