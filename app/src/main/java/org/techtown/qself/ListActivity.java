@@ -48,13 +48,41 @@ public class ListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    // 문제 삭제 후, ListActivity로 돌아왔을 때 삭제된 것이 반영되도록 하기 위해서
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        recyclerView = findViewById(R.id.RecyclerView);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new QuestionAdapter();
+
+        // 리사이클러뷰에 문제 추가
+        loadQuestionListData();
+
+        adapter.setOnItemClickListener(new OnQuestionClickListener() {
+            @Override
+            public void onItemClick(QuestionAdapter.ViewHolder holder, View view, int position) {
+                Question item = adapter.getItem(position);
+
+                Intent intent = new Intent(getApplicationContext(), ListQActivity.class);
+                intent.putExtra("data", item);
+                startActivity(intent);
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
+    }
+
     // 리사이클러뷰에 문제 추가 메소드
     public void loadQuestionListData() {
         int recordCount = 0;
 
         String sql = "select _id, TITLE, QUESTION, ANSWER FROM " + QuestionDatabase.TABLE_QUESTION + " order by _id ASC";
 
-        QuestionDatabase database =QuestionDatabase.getInstance(this);
+        QuestionDatabase database = QuestionDatabase.getInstance(this);
         if(database != null){
             Cursor cursor = database.rawQuery(sql);
 

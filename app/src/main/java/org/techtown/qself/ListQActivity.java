@@ -34,7 +34,6 @@ public class ListQActivity extends AppCompatActivity {
                 question.setText(dataFromEdit.getQuestion());
                 answer.setText(dataFromEdit.getAnswer());
 
-
                 Toast.makeText(getApplicationContext(),"문제가 수정되었습니다.", Toast.LENGTH_SHORT).show();
             }
         }
@@ -95,6 +94,8 @@ public class ListQActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // 삭제 버튼이 눌렸을 때 이벤트
+                deleteQuestion();
+                finish();
             }
         });
 
@@ -106,5 +107,17 @@ public class ListQActivity extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void deleteQuestion(){
+        QuestionDatabase database = QuestionDatabase.getInstance(this);
+
+        String sql = "DELETE FROM " + QuestionDatabase.TABLE_QUESTION + " WHERE _id = " + num;
+        database.execSQL(sql);
+
+        /*
+        sql = "ALTER TABLE " + QuestionDatabase.TABLE_QUESTION + " AUTO_INCREMENT = " + num;
+        database.execSQL(sql);
+         */
     }
 }
