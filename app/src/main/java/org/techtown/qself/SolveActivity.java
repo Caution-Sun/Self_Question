@@ -16,6 +16,8 @@ public class SolveActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     QuestionAdapter adapter;
 
+    int start, end;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,18 +32,18 @@ public class SolveActivity extends AppCompatActivity {
         // 리사이클러뷰에 문제 추가
         loadQuestionListData();
 
-        /*
-        adapter.addItem(new Question(1, "제목1제목1제목1", "내용1내용1내용1", "정답1정답1정답1"));
-        adapter.addItem(new Question(1, "제목2제목2제목2", "내용2내용2내용2", "정답2정답2정답2"));
-        */
-
         adapter.setOnItemClickListener(new OnQuestionClickListener() {
             @Override
             public void onItemClick(QuestionAdapter.ViewHolder holder, View view, int position) {
                 Question item = adapter.getItem(position);
 
                 Intent intent = new Intent(getApplicationContext(), SolveQActivity.class);
-                intent.putExtra("data", item);
+
+                intent.putExtra("id", item.getNum());
+
+                intent.putExtra("start", start);
+                intent.putExtra("end", end);
+
                 startActivity(intent);
             }
         });
@@ -54,7 +56,7 @@ public class SolveActivity extends AppCompatActivity {
 
         String sql = "select _id, TITLE, QUESTION, ANSWER FROM " + QuestionDatabase.TABLE_QUESTION + " order by _id ASC";
 
-        QuestionDatabase database =QuestionDatabase.getInstance(this);
+        QuestionDatabase database = QuestionDatabase.getInstance(this);
         if(database != null){
             Cursor cursor = database.rawQuery(sql);
 
@@ -64,6 +66,11 @@ public class SolveActivity extends AppCompatActivity {
                 cursor.moveToNext();
 
                 int _id = cursor.getInt(0);
+                if(i == 0)
+                    start = _id;
+                if(i == recordCount -1)
+                    end = _id;
+
                 String Title = cursor.getString(1);
                 String Question = cursor.getString(2);
                 String Answer = cursor.getString(3);

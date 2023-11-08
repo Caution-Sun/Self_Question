@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class ListQActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_EDIT = 301;
 
-    int num;
+    int id;
     TextView title;
     TextView question;
     TextView answer;
@@ -29,7 +29,7 @@ public class ListQActivity extends AppCompatActivity {
 
                 Question dataFromEdit = data.getParcelableExtra("dataFromEdit");
 
-                num = dataFromEdit.getNum();
+                id = dataFromEdit.getNum();
                 title.setText(dataFromEdit.getTitle());
                 question.setText(dataFromEdit.getQuestion());
                 answer.setText(dataFromEdit.getAnswer());
@@ -57,7 +57,7 @@ public class ListQActivity extends AppCompatActivity {
             Bundle bundle = intent.getExtras();
             Question data = bundle.getParcelable("data");
 
-            num = data.getNum();
+            id = data.getNum();
             title.setText(data.getTitle());
             question.setText(data.getQuestion());
             answer.setText(data.getAnswer());
@@ -74,7 +74,7 @@ public class ListQActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Question item = new Question(num, title.getText().toString(), question.getText().toString(), answer.getText().toString());
+                Question item = new Question(id, title.getText().toString(), question.getText().toString(), answer.getText().toString());
 
                 Intent intent = new Intent(getApplicationContext(),EditActivity.class);
                 intent.putExtra("data", item);
@@ -112,7 +112,7 @@ public class ListQActivity extends AppCompatActivity {
     private void deleteQuestion(){
         QuestionDatabase database = QuestionDatabase.getInstance(this);
 
-        String sql = "DELETE FROM " + QuestionDatabase.TABLE_QUESTION + " WHERE _id = " + num;
+        String sql = "DELETE FROM " + QuestionDatabase.TABLE_QUESTION + " WHERE _id = " + id;
         database.execSQL(sql);
 
         /*

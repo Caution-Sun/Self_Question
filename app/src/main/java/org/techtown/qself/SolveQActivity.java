@@ -3,7 +3,9 @@ package org.techtown.qself;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +14,11 @@ public class SolveQActivity extends AppCompatActivity {
     TextView title;
     TextView question;
     String answer;
-    int num;
+    int id;
+
+    int start, end;
+
+    Cursor cursor = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +35,20 @@ public class SolveQActivity extends AppCompatActivity {
 
         if(intent != null){
             Bundle bundle = intent.getExtras();
-            Question data = bundle.getParcelable("data");
+            id = bundle.getInt("id");
 
-            title.setText(data.getTitle());
-            question.setText(data.getQuestion());
-            answer = data.getAnswer();
-            num = data.getNum();
+            start = bundle.getInt("start");
+            end = bundle.getInt("end");
         }
+
+        // 데이터베이스와 커서를 설정하고, 처음 선택된 문제로 커서를 이동한 후 문제 설정
+        initQuestion();
+
+        if(id == start)
+            buttonBefore.setEnabled(false);
+        if(id == end)
+            buttonAfter.setEnabled(false);
+
 
         buttonAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,5 +58,96 @@ public class SolveQActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // 뒤로 버튼이 눌리면 커서를 하나 뒤로 이동시킨 후 문제 설정
+        buttonBefore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cursor.moveToPrevious();
+                setQuestion();
+
+                if(id == start){
+                    buttonBefore.setEnabled(false);
+                }else{
+                    buttonBefore.setEnabled(true);
+                }
+
+                if(id == end){
+                    buttonAfter.setEnabled(false);
+                }else{
+                    buttonAfter.setEnabled(true);
+                }
+            }
+        });
+
+        // 앞으로 버튼이 눌리면 커서를 하나 다음으로 이동시킨 후 문제 설정
+        buttonAfter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cursor.moveToNext();
+                setQuestion();
+
+                if(id == start){
+                    buttonBefore.setEnabled(false);
+                }else{
+                    buttonBefore.setEnabled(true);
+                }
+
+                if(id == end){
+                    buttonAfter.setEnabled(false);
+                }else{
+                    buttonAfter.setEnabled(true);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(cursor != null){
+            cursor.close();
+            cursor = null;
+        }
+
+    }
+
+    private void initQuestion() {
+
+        QuestionDatabase database = null;
+
+        if(cursor != null){
+            cursor.close();
+            cursor = null;
+        }
+
+        database = QuestionDatabase.getInstance(this);
+
+        String sql = "select _id, TITLE, QUESTION, ANSWER FROM " + QuestionDatabase.TABLE_QUESTION + " order by _id ASC";
+
+        cursor = database.rawQuery(sql);
+
+        int recordCount = cursor.getCount();
+
+        for(int i = 0; i < recordCount; i++){
+            cursor.moveToNext();
+
+            int _id = cursor.getInt(0);
+
+            if(_id == id){
+                setQuestion();
+                break;
+            }
+        }
+    }
+
+    private void setQuestion(){
+        id = cursor.getInt(0);
+        title.setText(cursor.getString(1));
+        question.setText(cursor.getString(2));
+        answer = cursor.getString(3);
     }
 }
