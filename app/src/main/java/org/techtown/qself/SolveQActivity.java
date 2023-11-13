@@ -1,7 +1,9 @@
 package org.techtown.qself;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -53,9 +55,12 @@ public class SolveQActivity extends AppCompatActivity {
         buttonAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 Intent intent = new Intent(getApplicationContext(), AnswerDialog.class);
                 intent.putExtra("answer", answer);
                 startActivity(intent);
+                 */
+                showAnswer();
             }
         });
 
@@ -149,5 +154,20 @@ public class SolveQActivity extends AppCompatActivity {
         title.setText(cursor.getString(1));
         question.setText(cursor.getString(2));
         answer = cursor.getString(3);
+    }
+
+    private void showAnswer(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("정답");
+        builder.setMessage(answer);
+
+        builder.setPositiveButton("닫기", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

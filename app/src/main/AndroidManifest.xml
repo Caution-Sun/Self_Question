@@ -13,11 +13,6 @@
             android:name=".EditActivity"
             android:exported="false" />
         <activity
-            android:name=".AnswerDialog"
-            android:exported="false"
-            android:label="정답"
-            android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity
             android:name=".MakeActivity"
             android:exported="false" />
         <activity
