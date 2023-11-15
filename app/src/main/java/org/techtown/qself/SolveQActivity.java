@@ -55,11 +55,6 @@ public class SolveQActivity extends AppCompatActivity {
         buttonAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Intent intent = new Intent(getApplicationContext(), AnswerDialog.class);
-                intent.putExtra("answer", answer);
-                startActivity(intent);
-                 */
                 showAnswer();
             }
         });
