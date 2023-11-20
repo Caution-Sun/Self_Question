@@ -2,6 +2,7 @@
 
 개인용 암기 앱
 
+<a href='https://velog.io/@e414/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%9E%90%EB%AC%B8%EC%9E%90%EB%8B%B5-%EC%95%B1-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4'>Velog 개발 일지</a>
 ---
 
 ## 메인 화면
