@@ -21,7 +21,7 @@
     <EditText
         android:id="@+id/editTextQuestion"
         android:layout_width="335dp"
-        android:layout_height="297dp"
+        android:layout_height="200dp"
         android:layout_marginTop="56dp"
         android:ems="10"
         android:gravity="top|left"
@@ -36,11 +36,12 @@
     <EditText
         android:id="@+id/editTextAnswer"
         android:layout_width="335dp"
-        android:layout_height="44dp"
+        android:layout_height="100dp"
         android:layout_marginTop="56dp"
         android:ems="10"
+        android:gravity="top"
         android:hint="정답"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine|text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextQuestion" />

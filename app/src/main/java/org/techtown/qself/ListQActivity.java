@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -47,6 +48,8 @@ public class ListQActivity extends AppCompatActivity {
         title = findViewById(R.id.textTitle);
         question = findViewById(R.id.textQuestion);
         answer = findViewById(R.id.textAnswer);
+
+        answer.setMovementMethod(new ScrollingMovementMethod());
 
         Button buttonDelete = findViewById(R.id.buttonDelete);
         Button buttonEdit = findViewById(R.id.buttonEdit);
