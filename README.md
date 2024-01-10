@@ -9,7 +9,7 @@
 ### Update
 
 2024 / 01 / 11
-- 화면에 ScrollView 추가
+- 화면에 ScrollView 추가. 그로인해 몇몇 constraint 조정
 
 ---
 
