@@ -7,62 +7,81 @@
     android:background="#E7C37F"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/dm_serif_text"
-        android:gravity="center"
-        android:text="Self Question"
-        android:textSize="55sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="200dp"
-        android:orientation="vertical"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/makeButton"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#F5F5DC"
-            android:gravity="center"
-            android:padding="15dp"
-            android:text="문제 만들기"
-            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/listButton"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="60dp"
-            android:backgroundTint="#F5F5DC"
-            android:gravity="center"
-            android:padding="15dp"
-            android:text="문제 목록"
-            android:textSize="20sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/solveButton"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#F5F5DC"
-            android:gravity="center"
-            android:padding="15dp"
-            android:text="문제 풀기"
-            android:textSize="20sp" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:fontFamily="@font/dm_serif_text"
+                    android:gravity="center"
+                    android:text="Self Question"
+                    android:textSize="55sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textTitle">
+
+                    <Button
+                        android:id="@+id/makeButton"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#F5F5DC"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:text="문제 만들기"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/listButton"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="60dp"
+                        android:layout_marginBottom="60dp"
+                        android:backgroundTint="#F5F5DC"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:text="문제 목록"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/solveButton"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#F5F5DC"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:text="문제 풀기"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
