@@ -20,6 +20,7 @@ public class ListQActivity extends AppCompatActivity {
     TextView title;
     TextView question;
     TextView answer;
+    TextView tag;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -34,6 +35,7 @@ public class ListQActivity extends AppCompatActivity {
                 title.setText(dataFromEdit.getTitle());
                 question.setText(dataFromEdit.getQuestion());
                 answer.setText(dataFromEdit.getAnswer());
+                tag.setText(dataFromEdit.getTag());
 
                 Toast.makeText(getApplicationContext(),"문제가 수정되었습니다.", Toast.LENGTH_SHORT).show();
             }
@@ -48,6 +50,7 @@ public class ListQActivity extends AppCompatActivity {
         title = findViewById(R.id.textTitle);
         question = findViewById(R.id.textQuestion);
         answer = findViewById(R.id.textAnswer);
+        tag = findViewById(R.id.textTag);
 
         answer.setMovementMethod(new ScrollingMovementMethod());
 
@@ -64,6 +67,7 @@ public class ListQActivity extends AppCompatActivity {
             title.setText(data.getTitle());
             question.setText(data.getQuestion());
             answer.setText(data.getAnswer());
+            tag.setText(data.getTag());
         }
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +81,7 @@ public class ListQActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Question item = new Question(id, title.getText().toString(), question.getText().toString(), answer.getText().toString());
+                Question item = new Question(id, title.getText().toString(), question.getText().toString(), answer.getText().toString(), tag.getText().toString());
 
                 Intent intent = new Intent(getApplicationContext(),EditActivity.class);
                 intent.putExtra("data", item);

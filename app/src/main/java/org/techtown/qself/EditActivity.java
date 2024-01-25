@@ -12,6 +12,7 @@ public class EditActivity extends AppCompatActivity {
     EditText editTextTitle;
     EditText editTextQuestion;
     EditText editTextAnswer;
+    EditText editTextTag;
     int num;
 
     @Override
@@ -22,6 +23,7 @@ public class EditActivity extends AppCompatActivity {
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextQuestion = findViewById(R.id.editTextQuestion);
         editTextAnswer = findViewById(R.id.editTextAnswer);
+        editTextTag = findViewById(R.id.editTextTag);
 
         Button button = findViewById(R.id.buttonEditQuestion);
         button.setOnClickListener(new View.OnClickListener() {
@@ -30,7 +32,7 @@ public class EditActivity extends AppCompatActivity {
 
                 editQuestion();
 
-                Question item = new Question(num, editTextTitle.getText().toString(), editTextQuestion.getText().toString(), editTextAnswer.getText().toString());
+                Question item = new Question(num, editTextTitle.getText().toString(), editTextQuestion.getText().toString(), editTextAnswer.getText().toString(), editTextTag.getText().toString());
 
                 Intent intent = new Intent();
                 intent.putExtra("dataFromEdit",item);
@@ -49,6 +51,7 @@ public class EditActivity extends AppCompatActivity {
             editTextTitle.setText(data.getTitle());
             editTextQuestion.setText(data.getQuestion());
             editTextAnswer.setText(data.getAnswer());
+            editTextTag.setText(data.getTag());
         }
     }
 
@@ -56,11 +59,17 @@ public class EditActivity extends AppCompatActivity {
         String title = editTextTitle.getText().toString();
         String question = editTextQuestion.getText().toString();
         String answer = editTextAnswer.getText().toString();
+        String tag = editTextTag.getText().toString();
+
+        if(tag.equals("") || tag.equals("태그 없음") || tag.equals("태그없음")){
+            tag = "태그없음";
+        }
 
         String sql = "UPDATE " + QuestionDatabase.TABLE_QUESTION + " SET " +
                 "TITLE = '" + title + "', " +
                 "QUESTION = '" + question + "', " +
-                "ANSWER = '" + answer + "' " +
+                "ANSWER = '" + answer + "', " +
+                "TAG = '" + tag + "' " +
                 "WHERE _id = " + num;
 
         QuestionDatabase database = QuestionDatabase.getInstance(this);

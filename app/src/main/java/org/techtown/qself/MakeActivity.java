@@ -13,6 +13,7 @@ public class MakeActivity extends AppCompatActivity {
     EditText editTextTitle;
     EditText editTextQuestion;
     EditText editTextAnswer;
+    EditText editTextTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class MakeActivity extends AppCompatActivity {
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextQuestion = findViewById(R.id.editTextQuestion);
         editTextAnswer = findViewById(R.id.editTextAnswer);
+        editTextTag = findViewById(R.id.editTextTag);
 
         Button buttonMakeQuestion = findViewById(R.id.buttonEditQuestion);
 
@@ -44,12 +46,18 @@ public class MakeActivity extends AppCompatActivity {
         String title = editTextTitle.getText().toString();
         String question = editTextQuestion.getText().toString();
         String answer = editTextAnswer.getText().toString();
+        String tag = editTextTag.getText().toString();
+
+        if(tag.equals("") || tag.equals("태그 없음") || tag.equals("태그없음")){
+            tag = "태그없음";
+        }
 
         String sql = "insert into " + QuestionDatabase.TABLE_QUESTION +
-                "(TITLE, QUESTION, ANSWER) values(" +
+                "(TITLE, QUESTION, ANSWER, TAG) values(" +
                 "'" + title + "', " +
                 "'" + question + "', " +
-                "'" + answer + "')";
+                "'" + answer + "', " +
+                "'" + tag + "')";
 
         QuestionDatabase database = QuestionDatabase.getInstance(this);
         database.execSQL(sql);

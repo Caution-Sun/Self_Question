@@ -8,12 +8,14 @@ public class Question implements Parcelable {
     String title;
     String question;
     String answer;
+    String tag;
 
-    public Question(int num, String title, String question, String answer) {
+    public Question(int num, String title, String question, String answer, String tag) {
         this.num = num;
         this.title = title;
         this.question = question;
         this.answer = answer;
+        this.tag = tag;
     }
 
     public Question(Parcel src){
@@ -21,6 +23,7 @@ public class Question implements Parcelable {
         title = src.readString();
         question = src.readString();
         answer = src.readString();
+        tag = src.readString();
     }
 
     public int getNum() {
@@ -55,6 +58,10 @@ public class Question implements Parcelable {
         this.answer = answer;
     }
 
+    public String getTag() {return tag;}
+
+    public void setTag(String tag) {this.tag = tag;}
+
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
         public Question createFromParcel(Parcel in){
             return new Question(in);
@@ -75,5 +82,6 @@ public class Question implements Parcelable {
         dest.writeString(title);
         dest.writeString(question);
         dest.writeString(answer);
+        dest.writeString(tag);
     }
 }

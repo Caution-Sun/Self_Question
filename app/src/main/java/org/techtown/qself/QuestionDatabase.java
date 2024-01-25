@@ -21,7 +21,7 @@ public class QuestionDatabase {
     public static String DATABSE_NAME = "question.db";
 
     // 데이터베이스 버전
-    public static int DATABASE_VERSION = 1;
+    public static int DATABASE_VERSION = 2;
 
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
@@ -109,7 +109,8 @@ public class QuestionDatabase {
                     +" _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
                     +" TITLE TEXT DEFAULT '', "
                     +" QUESTION TEXT DEFAULT '', "
-                    +" ANSWER TEXT DEFAULT '' "
+                    +" ANSWER TEXT DEFAULT '', "
+                    +" TAG TEXT DEFAULT '' "    // added in VERSION 2
                     +")";
             try{
                 db.execSQL(CREAT_SQL);
@@ -122,7 +123,18 @@ public class QuestionDatabase {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            println("Upgrading Database from version : " + oldVersion + "to " + newVersion + ".");
+            if(oldVersion < 2){
+                try{
+                    db.beginTransaction();
+                    db.execSQL("ALTER TABLE " + TABLE_QUESTION + " ADD COLUMN TAG TEXT DEFAULT ''");
+                    db.setTransactionSuccessful();
+                    println("Upgrading Database from version : " + oldVersion + "to " + newVersion + ".");
+                }catch (IllegalStateException ex){
+                    Log.e(TAG, "Exception in onUpgrage", ex);
+                }finally {
+                    db.endTransaction();
+                }
+            }
         }
 
         @Override

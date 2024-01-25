@@ -9,43 +9,84 @@ import android.database.Cursor;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     QuestionAdapter adapter;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_list);
 
-        recyclerView = findViewById(R.id.RecyclerView);
+            recyclerView = findViewById(R.id.RecyclerView);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new QuestionAdapter();
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(layoutManager);
+            adapter = new QuestionAdapter();
 
-        // 리사이클러뷰에 문제 추가
-        loadQuestionListData();
+            adapter.setOnItemClickListener(new OnQuestionClickListener() {
+                @Override
+                public void onItemClick(QuestionAdapter.ViewHolder holder, View view, int position) {
+                    Question item = adapter.getItem(position);
 
-        /*
-        adapter.addItem(new Question(1, "제목1제목1제목1", "내용1내용1내용1", "정답1정답1정답1"));
-        adapter.addItem(new Question(1, "제목2제목2제목2", "내용2내용2내용2", "정답2정답2정답2"));
-         */
+                    Intent intent = new Intent(getApplicationContext(), ListQActivity.class);
+                    intent.putExtra("data", item);
+                    startActivity(intent);
+                }
+            });
 
-        adapter.setOnItemClickListener(new OnQuestionClickListener() {
-            @Override
-            public void onItemClick(QuestionAdapter.ViewHolder holder, View view, int position) {
-                Question item = adapter.getItem(position);
+            recyclerView.setAdapter(adapter);
 
-                Intent intent = new Intent(getApplicationContext(), ListQActivity.class);
-                intent.putExtra("data", item);
-                startActivity(intent);
+            spinner = findViewById(R.id.spinner);
+
+            ArrayList<String> items = new ArrayList<>();
+            items.add("ALL");
+
+            String sql = "select DISTINCT TAG FROM " + QuestionDatabase.TABLE_QUESTION;
+            QuestionDatabase database = QuestionDatabase.getInstance(this);
+            if(database != null){
+                Cursor cursor = database.rawQuery(sql);
+
+                int recordCount = cursor.getCount();
+                for(int i = 0; i < recordCount; i++){
+                    cursor.moveToNext();
+
+                    String tag = cursor.getString(0);
+                    items.add(tag);
+                }
+
+                cursor.close();
             }
-        });
 
-        recyclerView.setAdapter(adapter);
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(spinnerAdapter);
+
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String tag = items.get(position);
+
+                    if(tag.equals("ALL"))
+                        loadQuestionListData();
+                    else
+                        loadQuestionListDataByTag(tag);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
     }
 
     // 문제 삭제 후, ListActivity로 돌아왔을 때 삭제된 것이 반영되도록 하기 위해서
@@ -59,9 +100,6 @@ public class ListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new QuestionAdapter();
 
-        // 리사이클러뷰에 문제 추가
-        loadQuestionListData();
-
         adapter.setOnItemClickListener(new OnQuestionClickListener() {
             @Override
             public void onItemClick(QuestionAdapter.ViewHolder holder, View view, int position) {
@@ -74,13 +112,63 @@ public class ListActivity extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(adapter);
+
+        spinner = findViewById(R.id.spinner);
+
+        ArrayList<String> items = new ArrayList<>();
+        items.add("ALL");
+
+        String sql = "select DISTINCT TAG FROM " + QuestionDatabase.TABLE_QUESTION;
+        QuestionDatabase database = QuestionDatabase.getInstance(this);
+        if(database != null){
+            Cursor cursor = database.rawQuery(sql);
+
+            int recordCount = cursor.getCount();
+            for(int i = 0; i < recordCount; i++){
+                cursor.moveToNext();
+
+                String tag = cursor.getString(0);
+                items.add(tag);
+            }
+
+            cursor.close();
+        }
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String tag = items.get(position);
+
+                if(tag.equals("ALL"))
+                    loadQuestionListData();
+                else
+                    loadQuestionListDataByTag(tag);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     // 리사이클러뷰에 문제 추가 메소드
     public void loadQuestionListData() {
+        adapter.deleteAllItem();
+        adapter.notifyDataSetChanged();
+
+        int recyclerviewItemsCount = adapter.getItemCount();
+        for(int i = 0; i < recyclerviewItemsCount; i++){
+
+        }
+
         int recordCount = 0;
 
-        String sql = "select _id, TITLE, QUESTION, ANSWER FROM " + QuestionDatabase.TABLE_QUESTION + " order by _id ASC";
+        String sql = "select _id, TITLE, QUESTION, ANSWER, TAG FROM " + QuestionDatabase.TABLE_QUESTION + " order by _id ASC";
 
         QuestionDatabase database = QuestionDatabase.getInstance(this);
         if(database != null){
@@ -95,13 +183,45 @@ public class ListActivity extends AppCompatActivity {
                 String Title = cursor.getString(1);
                 String Question = cursor.getString(2);
                 String Answer = cursor.getString(3);
+                String Tag = cursor.getString(4);
 
-                adapter.addItem(new Question(_id, Title, Question, Answer));
+                adapter.addItem(new Question(_id, Title, Question, Answer, Tag));
             }
 
             cursor.close();
             adapter.notifyDataSetChanged();
         }
 
+    }
+
+    public void loadQuestionListDataByTag(String tag) {
+        adapter.deleteAllItem();
+        adapter.notifyDataSetChanged();
+
+        int recordCount = 0;
+
+        String sql = "select _id, TITLE, QUESTION, ANSWER, TAG FROM " + QuestionDatabase.TABLE_QUESTION + " where TAG = '" + tag + "' order by _id ASC";
+
+        QuestionDatabase database = QuestionDatabase.getInstance(this);
+        if(database != null){
+            Cursor cursor = database.rawQuery(sql);
+
+            recordCount = cursor.getCount();
+
+            for(int i = 0; i < recordCount; i++){
+                cursor.moveToNext();
+
+                int _id = cursor.getInt(0);
+                String Title = cursor.getString(1);
+                String Question = cursor.getString(2);
+                String Answer = cursor.getString(3);
+                String Tag = cursor.getString(4);
+
+                adapter.addItem(new Question(_id, Title, Question, Answer, Tag));
+            }
+
+            cursor.close();
+            adapter.notifyDataSetChanged();
+        }
     }
 }

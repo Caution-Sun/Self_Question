@@ -24,17 +24,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <EditText
-                    android:id="@+id/editTextTitle"
+                <LinearLayout
+                    android:id="@+id/linearLayout"
                     android:layout_width="335dp"
                     android:layout_height="44dp"
                     android:layout_marginTop="44dp"
-                    android:ems="10"
-                    android:hint="제목"
-                    android:inputType="textPersonName"
+                    android:orientation="horizontal"
+                    android:weightSum="10"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/editTextTag"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:ems="10"
+                        android:hint="태그없음"
+                        android:inputType="text"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/editTextTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="7"
+                        android:ems="10"
+                        android:hint="제목"
+                        android:inputType="text"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/editTextQuestion"
@@ -49,7 +70,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.493"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
                 <EditText
                     android:id="@+id/editTextAnswer"

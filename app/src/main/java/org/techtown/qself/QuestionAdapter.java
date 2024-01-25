@@ -38,6 +38,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     public void addItem(Question item){
         items.add(item);
     }
+    public void deleteAllItem(){
+        items.clear();
+    }
 
     public void setItems(ArrayList<Question> items){
         this.items = items;

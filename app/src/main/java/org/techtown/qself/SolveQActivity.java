@@ -12,13 +12,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class SolveQActivity extends AppCompatActivity {
     TextView title;
     TextView question;
+    TextView tag;
     String answer;
     int id;
 
     int start, end;
+
+    String tagNow;
 
     Cursor cursor = null;
 
@@ -29,6 +34,8 @@ public class SolveQActivity extends AppCompatActivity {
 
         title = findViewById(R.id.textTitle);
         question = findViewById(R.id.textQuestion);
+        tag = findViewById(R.id.textTag);
+
         Button buttonAnswer = findViewById(R.id.buttonShowAnswer);
         Button buttonBefore = findViewById(R.id.buttonBefore);
         Button buttonAfter = findViewById(R.id.buttonNext);
@@ -41,6 +48,8 @@ public class SolveQActivity extends AppCompatActivity {
 
             start = bundle.getInt("start");
             end = bundle.getInt("end");
+
+            tagNow = bundle.getString("tag");
         }
 
         // 데이터베이스와 커서를 설정하고, 처음 선택된 문제로 커서를 이동한 후 문제 설정
@@ -126,7 +135,12 @@ public class SolveQActivity extends AppCompatActivity {
 
         database = QuestionDatabase.getInstance(this);
 
-        String sql = "select _id, TITLE, QUESTION, ANSWER FROM " + QuestionDatabase.TABLE_QUESTION + " order by _id ASC";
+        String sql;
+
+        if(tagNow.equals("ALL"))
+            sql = "select _id, TITLE, QUESTION, ANSWER, TAG FROM " + QuestionDatabase.TABLE_QUESTION + " order by _id ASC";
+        else
+            sql = "select _id, TITLE, QUESTION, ANSWER, TAG FROM " + QuestionDatabase.TABLE_QUESTION + " where TAG = '" + tagNow + "' order by _id ASC";
 
         cursor = database.rawQuery(sql);
 
@@ -149,6 +163,7 @@ public class SolveQActivity extends AppCompatActivity {
         title.setText(cursor.getString(1));
         question.setText(cursor.getString(2));
         answer = cursor.getString(3);
+        tag.setText(cursor.getString(4));
     }
 
     private void showAnswer(){
