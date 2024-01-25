@@ -6,6 +6,13 @@
 
 ---
 
+### Update
+
+2024 / 01 / 11
+- 화면에 ScrollView 추가. 그로인해 몇몇 constraint 조정
+
+---
+
 ## 메인 화면
 
 <img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/bb65d835-61aa-4234-9449-65f41bc486ae" width = "30%" height = "30%">
