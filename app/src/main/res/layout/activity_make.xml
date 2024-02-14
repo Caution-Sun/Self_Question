@@ -60,8 +60,9 @@
                 <EditText
                     android:id="@+id/editTextQuestion"
                     android:layout_width="335dp"
-                    android:layout_height="200dp"
+                    android:layout_height="100dp"
                     android:layout_marginTop="56dp"
+                    android:background="#85F5F5DC"
                     android:ems="10"
                     android:gravity="top|left"
                     android:hint="문제 내용"
@@ -75,8 +76,9 @@
                 <EditText
                     android:id="@+id/editTextAnswer"
                     android:layout_width="335dp"
-                    android:layout_height="200dp"
+                    android:layout_height="300dp"
                     android:layout_marginTop="56dp"
+                    android:background="#85F5F5DC"
                     android:ems="10"
                     android:gravity="top"
                     android:hint="정답"
