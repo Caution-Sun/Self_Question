@@ -11,6 +11,11 @@
 2024 / 01 / 11
 - 화면에 ScrollView 추가. 그로인해 몇몇 constraint 조정
 
+2024 / 01 / 25
+- 태그 기능 추가, 문제를 만들때 태그를 추가하고, 태그별로 문제를 확인하고 그 태그의 문제만을 풀 수 있도록 만듬
+<img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/26b02f56-69d7-4f08-8279-5f43235725e3" width = "30%" height = "30%">
+<img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/0f9eafdc-5342-485a-b929-7f6f8c6179a6" width = "30%" height = "30%">
+
 ---
 
 ## 메인 화면
