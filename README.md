@@ -16,6 +16,10 @@
 <img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/26b02f56-69d7-4f08-8279-5f43235725e3" width = "30%" height = "30%">
 <img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/0f9eafdc-5342-485a-b929-7f6f8c6179a6" width = "30%" height = "30%">
 
+2024 / 02 / 22
+- 문제 조회 화면에서 이전/다음 문제로 이동 가능 기능 추가
+<img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/23078452-ae44-475e-b530-29b0a3dbd35b" width = "30%" height = "30%">
+
 ---
 
 ## 메인 화면
