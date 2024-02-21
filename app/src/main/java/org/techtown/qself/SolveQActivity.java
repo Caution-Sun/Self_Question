@@ -7,12 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class SolveQActivity extends AppCompatActivity {
     TextView title;
@@ -37,8 +34,8 @@ public class SolveQActivity extends AppCompatActivity {
         tag = findViewById(R.id.textTag);
 
         Button buttonAnswer = findViewById(R.id.buttonShowAnswer);
-        Button buttonBefore = findViewById(R.id.buttonBefore);
-        Button buttonAfter = findViewById(R.id.buttonNext);
+        Button buttonBefore = findViewById(R.id.buttonBeforeSolve);
+        Button buttonAfter = findViewById(R.id.buttonAfterSolve);
 
         Intent intent = getIntent();
 

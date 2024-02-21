@@ -21,6 +21,9 @@ public class ListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     QuestionAdapter adapter;
     Spinner spinner;
+    String tag;
+
+    int start, end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,15 @@ public class ListActivity extends AppCompatActivity {
                     Question item = adapter.getItem(position);
 
                     Intent intent = new Intent(getApplicationContext(), ListQActivity.class);
-                    intent.putExtra("data", item);
+                    //intent.putExtra("data", item);
+                    //startActivity(intent);
+
+                    intent.putExtra("id", item.getNum());
+                    intent.putExtra("tag", tag);
+
+                    intent.putExtra("start", start);
+                    intent.putExtra("end", end);
+
                     startActivity(intent);
                 }
             });
@@ -74,7 +85,7 @@ public class ListActivity extends AppCompatActivity {
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String tag = items.get(position);
+                    tag = items.get(position);
 
                     if(tag.equals("ALL"))
                         loadQuestionListData();
@@ -106,7 +117,15 @@ public class ListActivity extends AppCompatActivity {
                 Question item = adapter.getItem(position);
 
                 Intent intent = new Intent(getApplicationContext(), ListQActivity.class);
-                intent.putExtra("data", item);
+                //intent.putExtra("data", item);
+                //startActivity(intent);
+
+                intent.putExtra("id", item.getNum());
+                intent.putExtra("tag", tag);
+
+                intent.putExtra("start", start);
+                intent.putExtra("end", end);
+
                 startActivity(intent);
             }
         });
@@ -141,7 +160,7 @@ public class ListActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String tag = items.get(position);
+                tag = items.get(position);
 
                 if(tag.equals("ALL"))
                     loadQuestionListData();
@@ -180,6 +199,11 @@ public class ListActivity extends AppCompatActivity {
                 cursor.moveToNext();
 
                 int _id = cursor.getInt(0);
+                if(i == 0)
+                    start = _id;
+                if(i == recordCount -1)
+                    end = _id;
+
                 String Title = cursor.getString(1);
                 String Question = cursor.getString(2);
                 String Answer = cursor.getString(3);
@@ -212,6 +236,11 @@ public class ListActivity extends AppCompatActivity {
                 cursor.moveToNext();
 
                 int _id = cursor.getInt(0);
+                if(i == 0)
+                    start = _id;
+                if(i == recordCount -1)
+                    end = _id;
+
                 String Title = cursor.getString(1);
                 String Question = cursor.getString(2);
                 String Answer = cursor.getString(3);

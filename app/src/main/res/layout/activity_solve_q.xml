@@ -82,7 +82,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textQuestion" />
 
                 <Button
-                    android:id="@+id/buttonBefore"
+                    android:id="@+id/buttonBeforeSolve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="36dp"
@@ -94,7 +94,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/buttonShowAnswer" />
 
                 <Button
-                    android:id="@+id/buttonNext"
+                    android:id="@+id/buttonAfterSolve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="56dp"
