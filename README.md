@@ -18,8 +18,9 @@
 
 2024 / 02 / 22
 - 문제 조회 화면에서 이전/다음 문제로 이동 가능 기능 추가
+- 문제 만들기 화면에서 뒤로 버튼을 2초안에 두번 눌러야 액티비티가 종료되도록 만듬
 <img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/23078452-ae44-475e-b530-29b0a3dbd35b" width = "30%" height = "30%">
-
+<img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/9223fedb-f8e9-4b6a-a30b-745258293696" width = "30%" height = "30%">
 ---
 
 ## 메인 화면
