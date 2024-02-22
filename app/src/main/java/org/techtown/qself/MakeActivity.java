@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MakeActivity extends AppCompatActivity {
 
@@ -14,6 +15,8 @@ public class MakeActivity extends AppCompatActivity {
     EditText editTextQuestion;
     EditText editTextAnswer;
     EditText editTextTag;
+
+    private long backpressedTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,8 @@ public class MakeActivity extends AppCompatActivity {
         editTextQuestion = findViewById(R.id.editTextQuestion);
         editTextAnswer = findViewById(R.id.editTextAnswer);
         editTextTag = findViewById(R.id.editTextTag);
+
+        backpressedTime = 0;
 
         Button buttonMakeQuestion = findViewById(R.id.buttonEditQuestion);
 
@@ -39,6 +44,18 @@ public class MakeActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (System.currentTimeMillis() > backpressedTime + 2000) {
+            backpressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
+        } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
+            finish();
+        }
+
     }
 
     // 데이터베이스에 문제 추가 메소드
