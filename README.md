@@ -22,6 +22,9 @@
 <img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/23078452-ae44-475e-b530-29b0a3dbd35b" width = "30%" height = "30%">
 <img src = "https://github.com/Caution-Sun/Self_Question/assets/60997821/9223fedb-f8e9-4b6a-a30b-745258293696" width = "30%" height = "30%">
 
+2024 / 03 / 05
+- 문제 수정 화면에서 뒤로 버튼을 2초안에 두번 눌러야 액티비티가 종료되도록 만듬
+
 ---
 
 ## 메인 화면
